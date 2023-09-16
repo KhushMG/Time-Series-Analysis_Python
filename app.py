@@ -72,7 +72,7 @@ plt.plot(forecast_filtered['Date'], forecast_filtered['noncolgrad_yhat'], 'r-', 
 plt.xlabel('Date') 
 plt.ylabel('Unemployment Rate (%))')
 plt.title('Unemployment Rate of those with no College Degree vs those with a Professional Degree')
-plt.xlim(pd.Timestamp('2000-01-01'), max(forecast["Date"]))
+plt.xlim(pd.Timestamp('2018-01-01'), max(forecast["Date"]))
 plt.ylim(0, max(forecast['noncolgrad_yhat']))
 plt.margins(x=0)
 plt.subplots_adjust(top=0.924)
