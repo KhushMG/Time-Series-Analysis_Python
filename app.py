@@ -64,11 +64,18 @@ merge_noncolgrad_forecast.columns = noncolgrad_names
 forecast = pd.merge(merge_colgrad_forecast, merge_noncolgrad_forecast, how = 'inner', left_on = 'colgrad_ds', right_on = 'noncolgrad_ds')
 forecast = forecast.rename(columns={'colgrad_ds': 'Date'}).drop('noncolgrad_ds', axis=1)
 
-plt.figure(figsize=(10, 8))
-plt.plot(forecast['Date'], forecast['colgrad_yhat'], 'b-', label='College Graduates')
-plt.plot(forecast['Date'], forecast['noncolgrad_yhat'], 'r-', label='Non-College Graduates')
+forecast_filtered = forecast[(forecast['Date'] > '1999-01-01') & (forecast['Date'] <= max(forecast['Date']))]
+
+plt.figure(figsize=(15, 8))
+plt.plot(forecast_filtered['Date'], forecast_filtered['colgrad_yhat'], 'b-', label='College Graduates')
+plt.plot(forecast_filtered['Date'], forecast_filtered['noncolgrad_yhat'], 'r-', label='Non-College Graduates')
 plt.xlabel('Date') 
 plt.ylabel('Unemployment Rate (%))')
 plt.title('Unemployment Rate of those with no College Degree vs those with a Professional Degree')
+plt.xlim(pd.Timestamp('2000-01-01'), max(forecast["Date"]))
+plt.ylim(0, max(forecast['noncolgrad_yhat']))
+plt.margins(x=0)
+plt.subplots_adjust(top=0.924)
+plt.tight_layout()
 plt.legend()
 plt.show()
